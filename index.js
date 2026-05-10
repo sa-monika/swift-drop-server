@@ -46,6 +46,15 @@ async function run() {
       res.send(result);
     });
 
+    // get parcel by id
+    app.get("/parcels/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+
+      const result = await parcelsCollection.findOne(query);
+      res.send(result);
+    });
+
     app.post("/parcels", async (req, res) => {
       const parcel = req.body;
       // parcel created Time
@@ -60,6 +69,7 @@ async function run() {
       const query = { _id: new ObjectId(id) };
 
       const result = await parcelsCollection.deleteOne(query);
+      res.send(result);
     });
 
     // Send a ping to confirm a successful connection
